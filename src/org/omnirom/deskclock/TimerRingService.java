@@ -179,9 +179,8 @@ public class TimerRingService extends Service implements AudioManager.OnAudioFoc
                 Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(sVibratePattern, 0);
             }
-            if (!silentAlarmSound) {
-                startAlarm(mMediaPlayer);
-            }
+            setTimerAlarm();
+            startAlarm(mMediaPlayer);
         } catch (Exception ex) {
             LogUtils.v("Using the fallback ringtone");
             // The alert may be on the sd card which could be busy right
@@ -190,7 +189,7 @@ public class TimerRingService extends Service implements AudioManager.OnAudioFoc
                 // Must reset the media player to clear the error state.
                 mMediaPlayer.reset();
                 setDataSourceFromResource(getResources(), mMediaPlayer,
-                        R.raw.fallbackring);
+                        org.omnirom.deskclock.R.raw.fallbackring);
                 startAlarm(mMediaPlayer);
             } catch (Exception ex2) {
                 // At this point we just don't play anything.
